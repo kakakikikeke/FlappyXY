@@ -62,10 +62,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float[] I = new float[16];
         float[] mOrientation = new float[3];
         Log.i(TAG, "Strart onSensorChanged");
-        if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
-            Log.i(TAG, "SENSOR_STATUS_UNRELIABLE");
-            return;
-        }
         switch (event.sensor.getType()) {
             case Sensor.TYPE_MAGNETIC_FIELD:
                 mGeomagnetic = event.values.clone();
