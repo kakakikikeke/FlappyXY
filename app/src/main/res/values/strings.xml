@@ -6,4 +6,7 @@
     <string name="sensor_0_text">accell_x</string>
     <string name="sensor_1_text">accell_y</string>
     <string name="sensor_2_text">accell_z</string>
+    <string name="answers">Answers</string>
+    <string name="count_down">CountStart</string>
+    <string name="adjust">Adjust!</string>
 </resources>
