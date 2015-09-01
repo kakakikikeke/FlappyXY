@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SensorTest</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="sensor_0_text">accell_x</string>
+    <string name="sensor_1_text">accell_y</string>
+    <string name="sensor_2_text">accell_z</string>
+</resources>
