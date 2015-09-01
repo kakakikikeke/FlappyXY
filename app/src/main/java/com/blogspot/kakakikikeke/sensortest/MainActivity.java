@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensor[0] = (TextView) findViewById(R.id.sensor_0_text);
         mSensor[1] = (TextView) findViewById(R.id.sensor_1_text);
         mSensor[2] = (TextView) findViewById(R.id.sensor_2_text);
+        initAnswers();
     }
 
     @Override
@@ -113,19 +114,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void initAnswers() {
-        for (int i = 0; i < answers.length; i++) {
-            double d = Math.random() * 180;
-            int degree = (int) d;
-            if (degree != 0) {
-                degree++;
-            }
-            double m = Math.random() * 10;
-            int sign = (int) m;
-            if (sign >= 5) {
-                degree *= (-1);
-            }
+        TextView vAnswers = (TextView) findViewById(R.id.answers);
+        answers[0] = getRandomDegree();
+        answers[1] = getRandomDegree();
+        answers[2] = getRandomDegree();
+        vAnswers.setText(
+                "[Z] -> " + answers[0] + "\n" +
+                        "[X] -> " + answers[1] + "\n" +
+                        "[Y] -> " + answers[2]);
+    }
 
+    private int getRandomDegree() {
+        double d = Math.random() * 180;
+        int degree = (int) d;
+        if (degree != 0) {
+            degree++;
         }
+        double m = Math.random() * 10;
+        int sign = (int) m;
+        if (sign >= 5) {
+            degree *= (-1);
+        }
+        return degree;
     }
 
     int radianToDegree(float rad) {
