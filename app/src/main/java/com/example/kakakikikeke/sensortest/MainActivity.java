@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final String TAG = "SensorTest";
     private SensorManager mSensorManager;
     private TextView[] mSensor = new TextView[3];
-    private float[] answers = new float[3];
+    private int[] answers = new int[3];
     private float[] mGeomagnetic;
     private float[] mAcceleration;
 
@@ -113,8 +113,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void initAnswers() {
-        for (float i : answers) {
-            double v = Math.random() * 180;
+        for (int i = 0; i < answers.length; i++) {
+            double d = Math.random() * 180;
+            int degree = (int) d;
+            if (degree != 0) {
+                degree++;
+            }
+            double m = Math.random() * 10;
+            int sign = (int) m;
+            if (sign >= 5) {
+                degree *= (-1);
+            }
+
         }
     }
 
