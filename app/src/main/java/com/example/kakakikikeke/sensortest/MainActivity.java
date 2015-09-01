@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
         }
         if (mGeomagnetic != null && mAcceleration != null) {
-            SensorManager.getRotationMatrix(inR, I, mGeomagnetic, mAcceleration);
+            SensorManager.getRotationMatrix(inR, I, mAcceleration, mGeomagnetic);
             SensorManager.remapCoordinateSystem(inR, SensorManager.AXIS_X, SensorManager.AXIS_Z, outR);
             SensorManager.getOrientation(outR, mOrientation);
             Log.i(TAG, "orientation[Z] : " + radianToDegree(mOrientation[0]));
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         List<Sensor> sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
         for (Sensor sensor : sensors) {
             if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
+                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
             }
             if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
