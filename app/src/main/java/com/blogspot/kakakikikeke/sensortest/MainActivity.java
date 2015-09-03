@@ -1,6 +1,7 @@
 package com.blogspot.kakakikikeke.sensortest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,29 +24,31 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView[] mSensor = new TextView[3];
     private TextView count;
     private ProgressBar mProgressBar;
+    private Intent aResult;
     private int[] answers = new int[3];
     private float[] mGeomagnetic;
     private float[] mAcceleration;
-    private final long startTime = 5000;
-    private final long interval = 10;
-    private final int millsec = 1000;
-    private long timeElapsed;
-    private GameCountDownTimer countDownTimer;
+    private final int mills = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor[0] = (TextView) findViewById(R.id.sensor_0_text);
         mSensor[1] = (TextView) findViewById(R.id.sensor_1_text);
         mSensor[2] = (TextView) findViewById(R.id.sensor_2_text);
         count = (TextView) findViewById(R.id.count);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        mProgressBar.setMax((int) (startTime / millsec));
+        long startTime = 5000;
+        long interval = 10;
+        mProgressBar.setMax((int) (startTime / mills));
+        aResult = new Intent(this, ResultActivity.class);
         initAnswers();
-        countDownTimer = new GameCountDownTimer(startTime, interval);
-        count.setText(String.valueOf(startTime / millsec));
+
+        GameCountDownTimer countDownTimer = new GameCountDownTimer(startTime, interval);
+        count.setText(String.valueOf(startTime / mills));
         countDownTimer.start();
     }
 
@@ -165,16 +168,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         @Override
         public void onFinish() {
-//            text.setText("Time's up!");
-//            timeElapsedView.setText("Time Elapsed: " + String.valueOf(startTime));
             count.setText("0");
+            startActivity(aResult);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
             Log.i(TAG, "millisUntilFinished : " + millisUntilFinished);
-            mProgressBar.setProgress((int) (millisUntilFinished / millsec));
-            count.setText(String.valueOf(millisUntilFinished / millsec));
+            mProgressBar.setProgress((int) (millisUntilFinished / mills));
+            count.setText(String.valueOf(millisUntilFinished / mills));
         }
     }
 }
