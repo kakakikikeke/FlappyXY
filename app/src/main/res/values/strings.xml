@@ -9,4 +9,8 @@
     <string name="count_down">CountStart</string>
     <string name="adjust">Adjust!</string>
     <string name="start_time">0</string>
+    <string name="start_message">Start</string>
+    <string name="result_message">Result</string>
+    <string name="start_button">Start</string>
+    <string name="ranking">Ranking</string>
 </resources>
