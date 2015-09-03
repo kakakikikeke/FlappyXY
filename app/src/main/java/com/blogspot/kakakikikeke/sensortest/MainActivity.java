@@ -41,15 +41,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensor[2] = (TextView) findViewById(R.id.sensor_2_text);
         count = (TextView) findViewById(R.id.count);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        long startTime = 5000;
+        long startTime = 6000;
+        int maxTime = 5;
         long interval = 10;
-        mProgressBar.setMax((int) (startTime / mills));
+        mProgressBar.setMax(maxTime);
         aResult = new Intent(this, ResultActivity.class);
         initAnswers();
 
         GameCountDownTimer countDownTimer = new GameCountDownTimer(startTime, interval);
-        mProgressBar.setProgress((int) (startTime / mills));
-        count.setText(String.valueOf(startTime / mills));
+        mProgressBar.setProgress(maxTime);
+        count.setText(String.valueOf(maxTime));
         countDownTimer.start();
     }
 
@@ -176,8 +177,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         @Override
         public void onTick(long millisUntilFinished) {
             Log.i(TAG, "millisUntilFinished : " + millisUntilFinished);
-            mProgressBar.setProgress((int) (millisUntilFinished / mills));
-            count.setText(String.valueOf(millisUntilFinished / mills));
+            if (millisUntilFinished < 5000) {
+                mProgressBar.setProgress((int) (millisUntilFinished / mills));
+                count.setText(String.valueOf(millisUntilFinished / mills));
+            }
         }
     }
 }
