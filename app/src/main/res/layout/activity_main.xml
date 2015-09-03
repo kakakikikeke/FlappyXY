@@ -65,7 +65,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -79,12 +79,12 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_time"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignTop="@+id/progressBar"
+        android:layout_alignTop="@+id/progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp" />
 

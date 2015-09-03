@@ -5,11 +5,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,9 +21,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final String TAG = "SensorTest";
     private SensorManager mSensorManager;
     private TextView[] mSensor = new TextView[3];
+    private TextView count;
+    private ProgressBar mProgressBar;
     private int[] answers = new int[3];
     private float[] mGeomagnetic;
     private float[] mAcceleration;
+    private final long startTime = 5000;
+    private final long interval = 10;
+    private final int millsec = 1000;
+    private long timeElapsed;
+    private GameCountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +40,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensor[0] = (TextView) findViewById(R.id.sensor_0_text);
         mSensor[1] = (TextView) findViewById(R.id.sensor_1_text);
         mSensor[2] = (TextView) findViewById(R.id.sensor_2_text);
+        count = (TextView) findViewById(R.id.count);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        mProgressBar.setMax((int) (startTime / millsec));
         initAnswers();
+        countDownTimer = new GameCountDownTimer(startTime, interval);
+        count.setText(String.valueOf(startTime / millsec));
+        countDownTimer.start();
     }
 
     @Override
@@ -140,5 +155,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     int radianToDegree(float rad) {
         return (int) Math.floor(Math.toDegrees(rad));
+    }
+
+    public class GameCountDownTimer extends CountDownTimer {
+
+        public GameCountDownTimer(long startTime, long interval) {
+            super(startTime, interval);
+        }
+
+        @Override
+        public void onFinish() {
+//            text.setText("Time's up!");
+//            timeElapsedView.setText("Time Elapsed: " + String.valueOf(startTime));
+            count.setText("0");
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            Log.i(TAG, "millisUntilFinished : " + millisUntilFinished);
+            mProgressBar.setProgress((int) (millisUntilFinished / millsec));
+            count.setText(String.valueOf(millisUntilFinished / millsec));
+        }
     }
 }
