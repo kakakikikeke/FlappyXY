@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         initAnswers();
 
         GameCountDownTimer countDownTimer = new GameCountDownTimer(startTime, interval);
+        mProgressBar.setProgress((int) (startTime / mills));
         count.setText(String.valueOf(startTime / mills));
         countDownTimer.start();
     }
