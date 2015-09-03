@@ -12,8 +12,28 @@
         android:id="@+id/result_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="128dp"
         android:text="@string/result_message"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/re_start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="137dp"
+        android:onClick="reStartGame"
+        android:text="@string/start_button" />
+
+    <Button
+        android:id="@+id/ranking_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/re_start_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:text="@string/ranking" />
 </RelativeLayout>
