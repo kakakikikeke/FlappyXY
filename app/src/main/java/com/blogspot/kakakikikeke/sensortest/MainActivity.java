@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensor[2] = (TextView) findViewById(R.id.sensor_2_text);
         count = (TextView) findViewById(R.id.count);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        long startTime = 6000;
+        long startTime = 6500;
         int maxTime = 5;
         long interval = 10;
         mProgressBar.setMax(maxTime);
