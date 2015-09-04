@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.blogspot.kakakikikeke.sensortest.utils.Const;
 
 import java.util.List;
 
@@ -30,8 +33,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private ProgressBar progressBar;
     private Intent resultIntent;
     private int[] answers = new int[3];
+    private boolean[] answersFlag = new boolean[3];
     private float[] geomagnetic;
     private float[] acceleration;
+    private int maxTime = 5;
+    private int clearCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +50,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorText[Y] = (TextView) findViewById(R.id.sensor_y_text);
         countDown = (TextView) findViewById(R.id.count_down);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        long startTime = 6500;
-        int maxTime = 5;
-        long interval = 10;
         progressBar.setMax(maxTime);
         resultIntent = new Intent(this, ResultActivity.class);
-        initAnswers();
 
+        resetGame();
+    }
+
+    private void resetTimer() {
+        long interval = 10;
+        long startTime = 6500;
         GameCountDownTimer countDownTimer = new GameCountDownTimer(startTime, interval);
         progressBar.setProgress(maxTime);
         countDown.setText(String.valueOf(maxTime));
@@ -88,10 +96,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         switch (event.sensor.getType()) {
             case Sensor.TYPE_MAGNETIC_FIELD:
                 geomagnetic = event.values.clone();
-                Log.i(TAG, "Get the value of magnetic field");
+                Log.w(TAG, "Get the value of magnetic field");
                 break;
             case Sensor.TYPE_ACCELEROMETER:
-                Log.i(TAG, "Get the value of accelerometer");
+                Log.w(TAG, "Get the value of accelerometer");
                 acceleration = event.values.clone();
                 break;
         }
@@ -105,16 +113,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sensorText[Z].setText(String.valueOf("Z : " + z));
             sensorText[X].setText(String.valueOf("X : " + x));
             sensorText[Y].setText(String.valueOf("Y :" + y));
-            if (answers[Z] == z) {
+            if (!answersFlag[Z] && answers[Z] == z) {
                 Log.i(TAG, "orientation[Z] : " + z);
+                answersFlag[Z] = true;
+                answerText[Z].setVisibility(View.GONE);
             }
-            if (answers[X] == x) {
+            if (!answersFlag[X] && answers[X] == x) {
                 Log.i(TAG, "orientation[X] : " + x);
+                answersFlag[X] = true;
+                answerText[X].setVisibility(View.GONE);
             }
-            if (answers[Y] == y) {
+            if (!answersFlag[Y] && answers[Y] == y) {
                 Log.i(TAG, "orientation[Y] : " + y);
+                answersFlag[Y] = true;
+                answerText[Y].setVisibility(View.GONE);
+            }
+            if (isClear()) {
+                next();
             }
         }
+    }
+
+    private void next() {
+        clearCount++;
+        resetGame();
+    }
+
+    private void resetGame() {
+        initAnswers();
+        resetTimer();
     }
 
     @Override
@@ -148,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         answerText[Z] = (TextView) findViewById(R.id.answer_z_text);
         answerText[X] = (TextView) findViewById(R.id.answer_x_text);
         answerText[Y] = (TextView) findViewById(R.id.answer_y_text);
+        answerText[Z].setVisibility(View.VISIBLE);
+        answerText[X].setVisibility(View.VISIBLE);
+        answerText[Y].setVisibility(View.VISIBLE);
         answers[Z] = getRandomDegree();
         answers[X] = getRandomDegree();
         answers[Y] = getRandomDegree();
@@ -183,17 +213,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         @Override
         public void onFinish() {
             countDown.setText("0");
-            startActivity(resultIntent);
+            if (isClear()) {
+                next();
+            } else {
+                resultIntent.putExtra(Const.CLEAR_COUNT, clearCount);
+                startActivity(resultIntent);
+            }
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            Log.i(TAG, "millisUntilFinished : " + millisUntilFinished);
             if (millisUntilFinished < 5000) {
                 int mills = 1000;
                 progressBar.setProgress((int) (millisUntilFinished / mills));
                 countDown.setText(String.valueOf(millisUntilFinished / mills));
             }
         }
+    }
+
+    private boolean isClear() {
+        return answersFlag[Z] && answersFlag[X] && answersFlag[Y];
     }
 }
