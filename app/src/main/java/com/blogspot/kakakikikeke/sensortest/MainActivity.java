@@ -100,12 +100,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             SensorManager.getRotationMatrix(inR, I, mAcceleration, mGeomagnetic);
             SensorManager.remapCoordinateSystem(inR, SensorManager.AXIS_X, SensorManager.AXIS_Z, outR);
             SensorManager.getOrientation(outR, mOrientation);
-            Log.i(TAG, "orientation[Z] : " + radianToDegree(mOrientation[Z]));
-            Log.i(TAG, "orientation[X] : " + radianToDegree(mOrientation[X]));
-            Log.i(TAG, "orientation[Y] : " + radianToDegree(mOrientation[Y]));
-            mSensor[Z].setText(String.valueOf("Z : " + radianToDegree(mOrientation[Z])));
-            mSensor[X].setText(String.valueOf("X : " + radianToDegree(mOrientation[X])));
-            mSensor[Y].setText(String.valueOf("Y :" + radianToDegree(mOrientation[Y])));
+            int z = radianToDegree(mOrientation[Z]);
+            int x = radianToDegree(mOrientation[X]);
+            int y = radianToDegree(mOrientation[Y]);
+            mSensor[Z].setText(String.valueOf("Z : " + z));
+            mSensor[X].setText(String.valueOf("X : " + x));
+            mSensor[Y].setText(String.valueOf("Y :" + y));
+            if (answers[Z] == z) {
+                Log.i(TAG, "orientation[Z] : " + z);
+            }
+            if (answers[X] == x) {
+                Log.i(TAG, "orientation[X] : " + x);
+            }
+            if (answers[Y] == y) {
+                Log.i(TAG, "orientation[Y] : " + y);
+            }
         }
     }
 
@@ -120,10 +129,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         List<Sensor> sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
         for (Sensor sensor : sensors) {
             if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
             }
             if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
             }
         }
     }
