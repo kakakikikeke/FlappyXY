@@ -20,6 +20,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "SensorTest";
+    private static final int Z = 0;
+    private static final int X = 1;
+    private static final int Y = 2;
     private SensorManager mSensorManager;
     private TextView[] mSensor = new TextView[3];
     private TextView count;
@@ -36,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensor[0] = (TextView) findViewById(R.id.sensor_0_text);
-        mSensor[1] = (TextView) findViewById(R.id.sensor_1_text);
-        mSensor[2] = (TextView) findViewById(R.id.sensor_2_text);
+        mSensor[Z] = (TextView) findViewById(R.id.sensor_0_text);
+        mSensor[X] = (TextView) findViewById(R.id.sensor_1_text);
+        mSensor[Y] = (TextView) findViewById(R.id.sensor_2_text);
         count = (TextView) findViewById(R.id.count);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         long startTime = 6500;
@@ -97,12 +100,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             SensorManager.getRotationMatrix(inR, I, mAcceleration, mGeomagnetic);
             SensorManager.remapCoordinateSystem(inR, SensorManager.AXIS_X, SensorManager.AXIS_Z, outR);
             SensorManager.getOrientation(outR, mOrientation);
-            Log.i(TAG, "orientation[Z] : " + radianToDegree(mOrientation[0]));
-            Log.i(TAG, "orientation[X] : " + radianToDegree(mOrientation[1]));
-            Log.i(TAG, "orientation[Y] : " + radianToDegree(mOrientation[2]));
-            mSensor[0].setText(String.valueOf("Z : " + radianToDegree(mOrientation[0])));
-            mSensor[1].setText(String.valueOf("X : " + radianToDegree(mOrientation[1])));
-            mSensor[2].setText(String.valueOf("Y :" + radianToDegree(mOrientation[2])));
+            Log.i(TAG, "orientation[Z] : " + radianToDegree(mOrientation[Z]));
+            Log.i(TAG, "orientation[X] : " + radianToDegree(mOrientation[X]));
+            Log.i(TAG, "orientation[Y] : " + radianToDegree(mOrientation[Y]));
+            mSensor[Z].setText(String.valueOf("Z : " + radianToDegree(mOrientation[Z])));
+            mSensor[X].setText(String.valueOf("X : " + radianToDegree(mOrientation[X])));
+            mSensor[Y].setText(String.valueOf("Y :" + radianToDegree(mOrientation[Y])));
         }
     }
 
@@ -135,13 +138,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void initAnswers() {
         TextView vAnswers = (TextView) findViewById(R.id.answers);
-        answers[0] = getRandomDegree();
-        answers[1] = getRandomDegree();
-        answers[2] = getRandomDegree();
+        answers[Z] = getRandomDegree();
+        answers[X] = getRandomDegree();
+        answers[Y] = getRandomDegree();
         vAnswers.setText(
-                "[Z] -> " + answers[0] + "\n" +
-                        "[X] -> " + answers[1] + "\n" +
-                        "[Y] -> " + answers[2]);
+                "[Z] -> " + answers[Z] + "\n" +
+                        "[X] -> " + answers[X] + "\n" +
+                        "[Y] -> " + answers[Y]);
     }
 
     private int getRandomDegree() {
