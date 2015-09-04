@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView countDown;
     private ProgressBar progressBar;
     private Intent resultIntent;
+    private GameCountDownTimer countDownTimer;
     private int[] answers = new int[2];
     private boolean[] answersFlag = new boolean[2];
     private float[] geomagnetic;
@@ -50,14 +51,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         progressBar.setMax(maxTime);
         resultIntent = new Intent(this, ResultActivity.class);
 
+        long interval = 10;
+        long startTime = 6500;
+        countDownTimer = new GameCountDownTimer(startTime, interval);
+        progressBar.setProgress(maxTime);
         resetGame();
     }
 
     private void resetTimer() {
-        long interval = 10;
-        long startTime = 6500;
-        GameCountDownTimer countDownTimer = new GameCountDownTimer(startTime, interval);
-        progressBar.setProgress(maxTime);
         countDown.setText(String.valueOf(maxTime));
         countDownTimer.cancel();
         countDownTimer.start();
