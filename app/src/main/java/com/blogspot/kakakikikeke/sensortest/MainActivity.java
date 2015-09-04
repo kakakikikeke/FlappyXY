@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -96,10 +95,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         switch (event.sensor.getType()) {
             case Sensor.TYPE_MAGNETIC_FIELD:
                 geomagnetic = event.values.clone();
-                Log.w(TAG, "Get the value of magnetic field");
                 break;
             case Sensor.TYPE_ACCELEROMETER:
-                Log.w(TAG, "Get the value of accelerometer");
                 acceleration = event.values.clone();
                 break;
         }
@@ -116,17 +113,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (!answersFlag[Z] && answers[Z] == z) {
                 Log.i(TAG, "orientation[Z] : " + z);
                 answersFlag[Z] = true;
-                answerText[Z].setVisibility(View.GONE);
+                answerText[Z].setText(Const.CLEARED);
             }
             if (!answersFlag[X] && answers[X] == x) {
                 Log.i(TAG, "orientation[X] : " + x);
                 answersFlag[X] = true;
-                answerText[X].setVisibility(View.GONE);
+                answerText[X].setText(Const.CLEARED);
             }
             if (!answersFlag[Y] && answers[Y] == y) {
                 Log.i(TAG, "orientation[Y] : " + y);
                 answersFlag[Y] = true;
-                answerText[Y].setVisibility(View.GONE);
+                answerText[Y].setText(Const.CLEARED);
             }
             if (isClear()) {
                 next();
@@ -140,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void resetGame() {
+        answersFlag[Z] = false;
+        answersFlag[X] = false;
+        answersFlag[Y] = false;
         initAnswers();
         resetTimer();
     }
@@ -175,19 +175,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         answerText[Z] = (TextView) findViewById(R.id.answer_z_text);
         answerText[X] = (TextView) findViewById(R.id.answer_x_text);
         answerText[Y] = (TextView) findViewById(R.id.answer_y_text);
-        answerText[Z].setVisibility(View.VISIBLE);
-        answerText[X].setVisibility(View.VISIBLE);
-        answerText[Y].setVisibility(View.VISIBLE);
-        answers[Z] = getRandomDegree();
-        answers[X] = getRandomDegree();
-        answers[Y] = getRandomDegree();
+        answers[Z] = getYZRandomDegree();
+        answers[X] = getXRandomDegree();
+        answers[Y] = getYZRandomDegree();
         answerText[Z].setText("[Z]: " + answers[Z]);
         answerText[X].setText("[X]: " + answers[X]);
         answerText[Y].setText("[Y]: " + answers[Y]);
     }
 
-    private int getRandomDegree() {
+    private int getYZRandomDegree() {
         double d = Math.random() * 180;
+        int degree = (int) d;
+        if (degree != 0) {
+            degree++;
+        }
+        double m = Math.random() * 10;
+        int sign = (int) m;
+        if (sign >= 5) {
+            degree *= (-1);
+        }
+        return degree;
+    }
+
+    private int getXRandomDegree() {
+        double d = Math.random() * 90;
         int degree = (int) d;
         if (degree != 0) {
             degree++;
