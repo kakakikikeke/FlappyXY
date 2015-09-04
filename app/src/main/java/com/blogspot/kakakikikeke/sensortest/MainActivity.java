@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float[] outR = new float[16];
         float[] I = new float[16];
         float[] mOrientation = new float[3];
-        Log.i(TAG, "Strart onSensorChanged");
         switch (event.sensor.getType()) {
             case Sensor.TYPE_MAGNETIC_FIELD:
                 geomagnetic = event.values.clone();
