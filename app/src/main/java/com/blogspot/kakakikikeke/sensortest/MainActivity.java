@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int[] answers = new int[3];
     private float[] mGeomagnetic;
     private float[] mAcceleration;
-    private final int mills = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +38,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensor[Z] = (TextView) findViewById(R.id.sensor_0_text);
-        mSensor[X] = (TextView) findViewById(R.id.sensor_1_text);
-        mSensor[Y] = (TextView) findViewById(R.id.sensor_2_text);
+        mSensor[Z] = (TextView) findViewById(R.id.sensor_z_text);
+        mSensor[X] = (TextView) findViewById(R.id.sensor_x_text);
+        mSensor[Y] = (TextView) findViewById(R.id.sensor_y_text);
         count = (TextView) findViewById(R.id.count);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         long startTime = 6500;
@@ -190,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         public void onTick(long millisUntilFinished) {
             Log.i(TAG, "millisUntilFinished : " + millisUntilFinished);
             if (millisUntilFinished < 5000) {
+                int mills = 1000;
                 mProgressBar.setProgress((int) (millisUntilFinished / mills));
                 count.setText(String.valueOf(millisUntilFinished / mills));
             }
