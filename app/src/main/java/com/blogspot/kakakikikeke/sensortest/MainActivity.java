@@ -23,36 +23,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final int Z = 0;
     private static final int X = 1;
     private static final int Y = 2;
-    private SensorManager mSensorManager;
-    private TextView[] mSensor = new TextView[3];
-    private TextView count;
-    private ProgressBar mProgressBar;
-    private Intent aResult;
+    private SensorManager sensorManager;
+    private TextView[] sensorText = new TextView[3];
+    private TextView[] answerText = new TextView[3];
+    private TextView countDown;
+    private ProgressBar progressBar;
+    private Intent resultIntent;
     private int[] answers = new int[3];
-    private float[] mGeomagnetic;
-    private float[] mAcceleration;
+    private float[] geomagnetic;
+    private float[] acceleration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensor[Z] = (TextView) findViewById(R.id.sensor_z_text);
-        mSensor[X] = (TextView) findViewById(R.id.sensor_x_text);
-        mSensor[Y] = (TextView) findViewById(R.id.sensor_y_text);
-        count = (TextView) findViewById(R.id.count);
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorText[Z] = (TextView) findViewById(R.id.sensor_z_text);
+        sensorText[X] = (TextView) findViewById(R.id.sensor_x_text);
+        sensorText[Y] = (TextView) findViewById(R.id.sensor_y_text);
+        countDown = (TextView) findViewById(R.id.count_down);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         long startTime = 6500;
         int maxTime = 5;
         long interval = 10;
-        mProgressBar.setMax(maxTime);
-        aResult = new Intent(this, ResultActivity.class);
+        progressBar.setMax(maxTime);
+        resultIntent = new Intent(this, ResultActivity.class);
         initAnswers();
 
         GameCountDownTimer countDownTimer = new GameCountDownTimer(startTime, interval);
-        mProgressBar.setProgress(maxTime);
-        count.setText(String.valueOf(maxTime));
+        progressBar.setProgress(maxTime);
+        countDown.setText(String.valueOf(maxTime));
         countDownTimer.start();
     }
 
@@ -87,24 +88,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.i(TAG, "Strart onSensorChanged");
         switch (event.sensor.getType()) {
             case Sensor.TYPE_MAGNETIC_FIELD:
-                mGeomagnetic = event.values.clone();
+                geomagnetic = event.values.clone();
                 Log.i(TAG, "Get the value of magnetic field");
                 break;
             case Sensor.TYPE_ACCELEROMETER:
                 Log.i(TAG, "Get the value of accelerometer");
-                mAcceleration = event.values.clone();
+                acceleration = event.values.clone();
                 break;
         }
-        if (mGeomagnetic != null && mAcceleration != null) {
-            SensorManager.getRotationMatrix(inR, I, mAcceleration, mGeomagnetic);
+        if (geomagnetic != null && acceleration != null) {
+            SensorManager.getRotationMatrix(inR, I, acceleration, geomagnetic);
             SensorManager.remapCoordinateSystem(inR, SensorManager.AXIS_X, SensorManager.AXIS_Z, outR);
             SensorManager.getOrientation(outR, mOrientation);
             int z = radianToDegree(mOrientation[Z]);
             int x = radianToDegree(mOrientation[X]);
             int y = radianToDegree(mOrientation[Y]);
-            mSensor[Z].setText(String.valueOf("Z : " + z));
-            mSensor[X].setText(String.valueOf("X : " + x));
-            mSensor[Y].setText(String.valueOf("Y :" + y));
+            sensorText[Z].setText(String.valueOf("Z : " + z));
+            sensorText[X].setText(String.valueOf("X : " + x));
+            sensorText[Y].setText(String.valueOf("Y :" + y));
             if (answers[Z] == z) {
                 Log.i(TAG, "orientation[Z] : " + z);
             }
@@ -125,13 +126,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
-        List<Sensor> sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
         for (Sensor sensor : sensors) {
             if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
+                sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
             }
             if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
+                sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
             }
         }
     }
@@ -139,20 +140,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
-        if (mSensorManager != null) {
-            mSensorManager.unregisterListener(this);
+        if (sensorManager != null) {
+            sensorManager.unregisterListener(this);
         }
     }
 
     private void initAnswers() {
-        TextView vAnswers = (TextView) findViewById(R.id.answers);
+        answerText[Z] = (TextView) findViewById(R.id.answer_z_text);
+        answerText[X] = (TextView) findViewById(R.id.answer_x_text);
+        answerText[Y] = (TextView) findViewById(R.id.answer_y_text);
         answers[Z] = getRandomDegree();
         answers[X] = getRandomDegree();
         answers[Y] = getRandomDegree();
-        vAnswers.setText(
-                "[Z] -> " + answers[Z] + "\n" +
-                        "[X] -> " + answers[X] + "\n" +
-                        "[Y] -> " + answers[Y]);
+        answerText[Z].setText("[Z]: " + answers[Z]);
+        answerText[X].setText("[X]: " + answers[X]);
+        answerText[Y].setText("[Y]: " + answers[Y]);
     }
 
     private int getRandomDegree() {
@@ -181,8 +183,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         @Override
         public void onFinish() {
-            count.setText("0");
-            startActivity(aResult);
+            countDown.setText("0");
+            startActivity(resultIntent);
         }
 
         @Override
@@ -190,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.i(TAG, "millisUntilFinished : " + millisUntilFinished);
             if (millisUntilFinished < 5000) {
                 int mills = 1000;
-                mProgressBar.setProgress((int) (millisUntilFinished / mills));
-                count.setText(String.valueOf(millisUntilFinished / mills));
+                progressBar.setProgress((int) (millisUntilFinished / mills));
+                countDown.setText(String.valueOf(millisUntilFinished / mills));
             }
         }
     }

@@ -44,23 +44,40 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/sensor_y_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="50dp"
         android:text="@string/adjust"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/answers"
-        android:layout_centerHorizontal="true" />
-
     <TextView
-        android:id="@+id/answers"
+        android:id="@+id/answer_z_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/adjust"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/answers"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/answer_x_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer_z_text"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/answers"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/answer_y_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer_x_text"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
         android:text="@string/answers"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -69,23 +86,23 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_below="@+id/answer_y_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
         android:background="@drawable/circle_shape"
         android:indeterminate="false"
         android:max="5"
         android:progress="0"
-        android:progressDrawable="@drawable/circular_progress_bar"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/result"
-        android:layout_centerHorizontal="true" />
+        android:progressDrawable="@drawable/circular_progress_bar" />
 
     <TextView
-        android:id="@+id/count"
+        android:id="@+id/count_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start_time"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_alignTop="@+id/progress_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="37dp"
+        android:text="@string/start_time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
