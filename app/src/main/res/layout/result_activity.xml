@@ -18,13 +18,23 @@
         android:text="@string/result_message"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/clear_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="@string/clear_count"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
         android:id="@+id/re_start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/result_message"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="137dp"
+        android:layout_marginTop="140dp"
         android:onClick="reStartGame"
         android:text="@string/start_button" />
 
@@ -34,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/re_start_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="40dp"
         android:text="@string/ranking" />
+
 </RelativeLayout>
