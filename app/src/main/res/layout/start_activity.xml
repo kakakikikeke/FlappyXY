@@ -8,32 +8,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StartActivity">
 
-    <TextView
-        android:id="@+id/start_message"
+    <ImageView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="128dp"
-        android:text="@string/start_message"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/title" />
 
-    <Button
+    <ImageButton
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/start_message"
+        android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="60dp"
+        android:background="@null"
         android:onClick="startGame"
-        android:text="@string/start_button" />
+        android:src="@drawable/start" />
 
-    <Button
+    <ImageButton
         android:id="@+id/ranking_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/start_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/ranking" />
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:src="@drawable/ranking" />
+
 </RelativeLayout>
