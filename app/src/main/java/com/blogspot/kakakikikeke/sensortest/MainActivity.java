@@ -22,17 +22,16 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "SensorTest";
-    private static final int Z = 0;
-    private static final int X = 1;
-    private static final int Y = 2;
+    private static final int X = 0;
+    private static final int Y = 1;
     private SensorManager sensorManager;
-    private TextView[] sensorText = new TextView[3];
-    private TextView[] answerText = new TextView[3];
+    private TextView[] sensorText = new TextView[2];
+    private TextView[] answerText = new TextView[2];
     private TextView countDown;
     private ProgressBar progressBar;
     private Intent resultIntent;
-    private int[] answers = new int[3];
-    private boolean[] answersFlag = new boolean[3];
+    private int[] answers = new int[2];
+    private boolean[] answersFlag = new boolean[2];
     private float[] geomagnetic;
     private float[] acceleration;
     private int maxTime = 5;
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensorText[Z] = (TextView) findViewById(R.id.sensor_z_text);
         sensorText[X] = (TextView) findViewById(R.id.sensor_x_text);
         sensorText[Y] = (TextView) findViewById(R.id.sensor_y_text);
         countDown = (TextView) findViewById(R.id.count_down);
@@ -61,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         GameCountDownTimer countDownTimer = new GameCountDownTimer(startTime, interval);
         progressBar.setProgress(maxTime);
         countDown.setText(String.valueOf(maxTime));
+        countDownTimer.cancel();
         countDownTimer.start();
     }
 
@@ -88,9 +87,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float[] inR = new float[16];
         float[] outR = new float[16];
-        float[] I = new float[16];
         float[] mOrientation = new float[3];
         switch (event.sensor.getType()) {
             case Sensor.TYPE_MAGNETIC_FIELD:
@@ -101,20 +98,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
         }
         if (geomagnetic != null && acceleration != null) {
-            SensorManager.getRotationMatrix(inR, I, acceleration, geomagnetic);
-            SensorManager.remapCoordinateSystem(inR, SensorManager.AXIS_X, SensorManager.AXIS_Z, outR);
+            SensorManager.getRotationMatrix(outR, null, acceleration, geomagnetic);
             SensorManager.getOrientation(outR, mOrientation);
-            int z = radianToDegree(mOrientation[Z]);
-            int x = radianToDegree(mOrientation[X]);
-            int y = radianToDegree(mOrientation[Y]);
-            sensorText[Z].setText(String.valueOf("Z : " + z));
+            int x = radianToDegree(mOrientation[X + 1]);
+            int y = radianToDegree(mOrientation[Y + 1]);
             sensorText[X].setText(String.valueOf("X : " + x));
             sensorText[Y].setText(String.valueOf("Y :" + y));
-            if (!answersFlag[Z] && answers[Z] == z) {
-                Log.i(TAG, "orientation[Z] : " + z);
-                answersFlag[Z] = true;
-                answerText[Z].setText(Const.CLEARED);
-            }
             if (!answersFlag[X] && answers[X] == x) {
                 Log.i(TAG, "orientation[X] : " + x);
                 answersFlag[X] = true;
@@ -137,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void resetGame() {
-        answersFlag[Z] = false;
         answersFlag[X] = false;
         answersFlag[Y] = false;
         initAnswers();
@@ -172,13 +160,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void initAnswers() {
-        answerText[Z] = (TextView) findViewById(R.id.answer_z_text);
         answerText[X] = (TextView) findViewById(R.id.answer_x_text);
         answerText[Y] = (TextView) findViewById(R.id.answer_y_text);
-        answers[Z] = getYZRandomDegree();
         answers[X] = getXRandomDegree();
         answers[Y] = getYZRandomDegree();
-        answerText[Z].setText("[Z]: " + answers[Z]);
         answerText[X].setText("[X]: " + answers[X]);
         answerText[Y].setText("[Y]: " + answers[Y]);
     }
@@ -243,6 +228,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private boolean isClear() {
-        return answersFlag[Z] && answersFlag[X] && answersFlag[Y];
+        return answersFlag[X] && answersFlag[Y];
     }
 }
