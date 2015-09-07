@@ -2,6 +2,7 @@ package com.blogspot.kakakikikeke.sensortest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,6 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "SensorTest";
+    private static final String FONT_NAME = "PixelMplus10-Regular.ttf";
     private static final int X = 0;
     private static final int Y = 1;
     private SensorManager sensorManager;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private ProgressBar progressBar;
     private Intent resultIntent;
     private GameCountDownTimer countDownTimer;
+    private Typeface face;
     private int[] answers = new int[2];
     private boolean[] answersFlag = new boolean[2];
     private float[] geomagnetic;
@@ -41,10 +44,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        face = Typeface.createFromAsset(getAssets(), FONT_NAME);
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorText[X] = (TextView) findViewById(R.id.sensor_x_text);
         sensorText[Y] = (TextView) findViewById(R.id.sensor_y_text);
+        sensorText[X].setTypeface(face);
+        sensorText[Y].setTypeface(face);
         countDown = (TextView) findViewById(R.id.count_down);
+        countDown.setTypeface(face);
+        TextView adjustTitle = (TextView) findViewById(R.id.adjust);
+        adjustTitle.setTypeface(face);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setMax(maxTime);
         resultIntent = new Intent(this, ResultActivity.class);
@@ -143,6 +153,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         answers[Y] = getYZRandomDegree();
         answerText[X].setText("[X]: " + answers[X]);
         answerText[Y].setText("[Y]: " + answers[Y]);
+        answerText[X].setTypeface(face);
+        answerText[Y].setTypeface(face);
     }
 
     private int getYZRandomDegree() {
