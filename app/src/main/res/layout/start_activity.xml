@@ -24,9 +24,8 @@
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:background="@null"
-        android:onClick="startGame"
-        android:src="@drawable/start" />
+        android:background="@drawable/start_button_state"
+        android:onClick="startGame" />
 
     <ImageButton
         android:id="@+id/ranking_button"
