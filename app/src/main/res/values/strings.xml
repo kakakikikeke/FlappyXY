@@ -2,10 +2,10 @@
     <string name="app_name">FlappyXY</string>
 
     <string name="action_settings">Settings</string>
-    <string name="sensor_0_text">accell_x</string>
-    <string name="sensor_1_text">accell_y</string>
-    <string name="sensor_2_text">accell_z</string>
-    <string name="answers">Answers</string>
+    <string name="sensor_x_text">accell_x</string>
+    <string name="sensor_y_text">accell_y</string>
+    <string name="answer_x_text">answer_x</string>
+    <string name="answer_y_text">answer_x</string>
     <string name="count_down">CountStart</string>
     <string name="adjust">Adjust!</string>
     <string name="start_time">0</string>
@@ -14,4 +14,5 @@
     <string name="start_button">Start</string>
     <string name="ranking">Ranking</string>
     <string name="clear_count">Clear : </string>
+    <string name="you">You</string>
 </resources>

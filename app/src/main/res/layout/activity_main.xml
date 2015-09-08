@@ -9,32 +9,41 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/you"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/answer_x_text"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="60dp"
+        android:text="@string/you"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
         android:id="@+id/sensor_x_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:text="@string/sensor_1_text"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="45dp"
+        android:text="@string/sensor_x_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/sensor_y_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="@string/sensor_2_text"
+        android:layout_below="@+id/sensor_x_text"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/sensor_y_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/adjust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sensor_y_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/you"
+        android:layout_marginRight="55dp"
         android:text="@string/adjust"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -42,22 +51,21 @@
         android:id="@+id/answer_x_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/adjust"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/answers"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/sensor_x_text"
+        android:layout_marginRight="45dp"
+        android:text="@string/answer_x_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/answer_y_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/answer_x_text"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/answers"
+        android:layout_marginRight="45dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/answer_y_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ProgressBar
@@ -67,7 +75,7 @@
         android:layout_height="100dp"
         android:layout_below="@+id/answer_y_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/circle_shape"
         android:indeterminate="false"
         android:max="5"

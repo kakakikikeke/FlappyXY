@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         countDown.setTypeface(face);
         TextView adjustTitle = (TextView) findViewById(R.id.adjust);
         adjustTitle.setTypeface(face);
+        TextView yourTitle = (TextView) findViewById(R.id.you);
+        yourTitle.setTypeface(face);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setMax(maxTime);
         resultIntent = new Intent(this, ResultActivity.class);
@@ -88,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             SensorManager.getOrientation(outR, mOrientation);
             int x = radianToDegree(mOrientation[X + 1]);
             int y = radianToDegree(mOrientation[Y + 1]);
-            sensorText[X].setText(String.valueOf("X : " + x));
-            sensorText[Y].setText(String.valueOf("Y :" + y));
+            sensorText[X].setText(String.valueOf(Const.LABEL_X + x));
+            sensorText[Y].setText(String.valueOf(Const.LABEL_Y + y));
             if (!answersFlag[X] && answers[X] == x) {
                 Log.i(TAG, "orientation[X] : " + x);
                 answersFlag[X] = true;
@@ -150,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         answerText[Y] = (TextView) findViewById(R.id.answer_y_text);
         answers[X] = getXRandomDegree();
         answers[Y] = getYZRandomDegree();
-        answerText[X].setText("[X]: " + answers[X]);
-        answerText[Y].setText("[Y]: " + answers[Y]);
+        answerText[X].setText(Const.LABEL_X + answers[X]);
+        answerText[Y].setText(Const.LABEL_Y + answers[Y]);
         answerText[X].setTypeface(face);
         answerText[Y].setTypeface(face);
     }
