@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView[] sensorText = new TextView[2];
     private TextView[] answerText = new TextView[2];
     private TextView countDown;
+    private TextView clearCount;
     private ProgressBar progressBar;
     private Intent resultIntent;
     private GameCountDownTimer countDownTimer;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float[] geomagnetic;
     private float[] acceleration;
     private int maxTime = 5;
-    private int clearCount = 0;
+    private int clear = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorText[Y].setTypeface(face);
         countDown = (TextView) findViewById(R.id.count_down);
         countDown.setTypeface(face);
+        clearCount = (TextView) findViewById(R.id.clear_count);
+        clearCount.setTypeface(face);
         TextView adjustTitle = (TextView) findViewById(R.id.adjust);
         adjustTitle.setTypeface(face);
         TextView yourTitle = (TextView) findViewById(R.id.you);
@@ -109,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void next() {
-        clearCount++;
+        clear++;
+        clearCount.setText(String.valueOf(clear));
         resetGame();
     }
 
@@ -150,29 +154,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void initAnswers() {
         answerText[X] = (TextView) findViewById(R.id.answer_x_text);
         answerText[Y] = (TextView) findViewById(R.id.answer_y_text);
-        answers[X] = getXRandomDegree();
-        answers[Y] = getYZRandomDegree();
+        answers[X] = getXYRandomDegree();
+        answers[Y] = getXYRandomDegree();
         answerText[X].setText(Const.LABEL_X + answers[X]);
         answerText[Y].setText(Const.LABEL_Y + answers[Y]);
         answerText[X].setTypeface(face);
         answerText[Y].setTypeface(face);
     }
 
-    private int getYZRandomDegree() {
-        double d = Math.random() * 180;
-        int degree = (int) d;
-        if (degree != 0) {
-            degree++;
-        }
-        double m = Math.random() * 10;
-        int sign = (int) m;
-        if (sign >= 5) {
-            degree *= (-1);
-        }
-        return degree;
-    }
-
-    private int getXRandomDegree() {
+    private int getXYRandomDegree() {
         double d = Math.random() * 90;
         int degree = (int) d;
         if (degree != 0) {
@@ -202,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (isClear()) {
                 next();
             } else {
-                resultIntent.putExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, clearCount);
+                resultIntent.putExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, clear);
                 startActivity(resultIntent);
             }
         }
