@@ -8,43 +8,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ResultActivity">
 
-    <TextView
-        android:id="@+id/result_message"
+    <ImageView
+        android:id="@+id/game_over"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="128dp"
-        android:text="@string/result_message"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/game_over" />
 
     <TextView
         android:id="@+id/clear_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/result_message"
+        android:layout_below="@+id/game_over"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:text="@string/clear_count_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
+    <ImageButton
         android:id="@+id/re_start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/result_message"
+        android:layout_below="@+id/clear_count"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:onClick="reStartGame"
-        android:text="@string/start_button" />
+        android:layout_marginTop="60dp"
+        android:background="@drawable/start_button_state"
+        android:onClick="reStartGame" />
 
-    <Button
+    <ImageButton
         android:id="@+id/ranking_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/re_start_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="@string/ranking" />
-
+        android:background="@drawable/ranking_button_state" />
 </RelativeLayout>
