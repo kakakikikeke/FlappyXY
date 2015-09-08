@@ -9,14 +9,14 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/default_clear_count"
-        android:layout_marginBottom="50dp"
-        android:id="@+id/textView"
         android:layout_above="@+id/you"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="@string/default_clear_count"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/you"
@@ -24,7 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/answer_x_text"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="30dp"
+        android:width="100dp"
+        android:gravity="center"
         android:text="@string/you"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -33,7 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="45dp"
+        android:layout_marginLeft="40dp"
+        android:width="100dp"
+        android:gravity="left"
         android:text="@string/sensor_x_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -42,8 +46,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sensor_x_text"
-        android:layout_marginLeft="45dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="40dp"
+        android:width="100dp"
+        android:gravity="left"
         android:text="@string/sensor_y_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -53,7 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/you"
-        android:layout_marginRight="55dp"
+        android:layout_marginRight="30dp"
+        android:width="100dp"
+        android:gravity="center"
         android:text="@string/adjust"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -63,7 +71,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/sensor_x_text"
-        android:layout_marginRight="45dp"
+        android:layout_marginRight="20dp"
+        android:width="100dp"
+        android:gravity="left"
         android:text="@string/answer_x_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -73,8 +83,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/answer_x_text"
-        android:layout_marginRight="45dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
+        android:width="100dp"
+        android:gravity="left"
         android:text="@string/answer_y_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -98,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/progress_bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="38dp"
         android:text="@string/start_time"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
