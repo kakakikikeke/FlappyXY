@@ -1,6 +1,7 @@
 package com.blogspot.kakakikikeke.sensortest;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -20,6 +21,7 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         clearCount = (TextView) findViewById(R.id.clear_count);
+        clearCount.setTypeface(Typeface.createFromAsset(getAssets(), Const.FONT_NAME));
         String label = (String) clearCount.getText();
         clearCount.setText(label + i.getIntExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, 0));
     }
