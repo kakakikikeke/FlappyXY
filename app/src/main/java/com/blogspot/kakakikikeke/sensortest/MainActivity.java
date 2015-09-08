@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -205,6 +206,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 countDown.setText(String.valueOf(millisUntilFinished / mills));
             }
         }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return super.dispatchKeyEvent(e);
     }
 
     private boolean isClear() {
