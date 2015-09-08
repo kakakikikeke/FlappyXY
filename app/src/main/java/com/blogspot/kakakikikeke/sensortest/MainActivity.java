@@ -21,7 +21,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "SensorTest";
-    private static final String FONT_NAME = "PixelMplus10-Regular.ttf";
     private static final int X = 0;
     private static final int Y = 1;
     private SensorManager sensorManager;
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        face = Typeface.createFromAsset(getAssets(), FONT_NAME);
+        face = Typeface.createFromAsset(getAssets(), Const.FONT_NAME);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorText[X] = (TextView) findViewById(R.id.sensor_x_text);
@@ -94,12 +93,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (!answersFlag[X] && answers[X] == x) {
                 Log.i(TAG, "orientation[X] : " + x);
                 answersFlag[X] = true;
-                answerText[X].setText(Const.CLEARED);
+                answerText[X].setText(Const.LABEL_CLEARED);
             }
             if (!answersFlag[Y] && answers[Y] == y) {
                 Log.i(TAG, "orientation[Y] : " + y);
                 answersFlag[Y] = true;
-                answerText[Y].setText(Const.CLEARED);
+                answerText[Y].setText(Const.LABEL_CLEARED);
             }
             if (isClear()) {
                 next();
@@ -201,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (isClear()) {
                 next();
             } else {
-                resultIntent.putExtra(Const.CLEAR_COUNT, clearCount);
+                resultIntent.putExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, clearCount);
                 startActivity(resultIntent);
             }
         }

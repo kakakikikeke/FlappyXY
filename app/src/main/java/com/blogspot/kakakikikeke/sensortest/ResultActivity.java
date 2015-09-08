@@ -20,7 +20,7 @@ public class ResultActivity extends AppCompatActivity {
         Intent i = getIntent();
         clearCount = (TextView) findViewById(R.id.clear_count);
         String label = (String) clearCount.getText();
-        clearCount.setText(label + i.getIntExtra(Const.CLEAR_COUNT, 0));
+        clearCount.setText(label + i.getIntExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, 0));
     }
 
     public void reStartGame(View view) {
