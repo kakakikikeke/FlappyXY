@@ -31,6 +31,11 @@ public class ResultActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void showRanking(View view) {
+        Intent i = new Intent(this, RankingActivity.class);
+        startActivity(i);
+    }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.KEYCODE_BACK) {

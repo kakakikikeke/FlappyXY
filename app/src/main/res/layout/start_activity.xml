@@ -34,6 +34,7 @@
         android:layout_below="@+id/start_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/ranking_button_state" />
+        android:background="@drawable/ranking_button_state"
+        android:onClick="showRanking" />
 
 </RelativeLayout>
