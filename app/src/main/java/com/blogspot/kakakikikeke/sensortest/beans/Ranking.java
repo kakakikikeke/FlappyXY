@@ -3,9 +3,11 @@ package com.blogspot.kakakikikeke.sensortest.beans;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Data
 @AllArgsConstructor
 public class Ranking {
     @Setter
