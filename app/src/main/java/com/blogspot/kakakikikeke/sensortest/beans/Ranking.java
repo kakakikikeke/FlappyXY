@@ -20,11 +20,4 @@ public class Ranking {
     @Setter
     @Getter
     private Date registedDate;
-
-    public Ranking(String name, int rank, int clearCount, Date registedDate) {
-        this.name = name;
-        this.rank = rank;
-        this.clearCount = clearCount;
-        this.registedDate = registedDate;
-    }
 }
