@@ -16,4 +16,7 @@
     <string name="clear_count">0</string>
     <string name="clear_count_label">Clear : </string>
     <string name="you">You</string>
+    <string name="header_rank">Rank</string>
+    <string name="header_name">Name</string>
+    <string name="header_clear_count">Clear</string>
 </resources>
