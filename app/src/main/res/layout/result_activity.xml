@@ -18,13 +18,23 @@
         android:src="@drawable/game_over" />
 
     <TextView
-        android:id="@+id/clear_count"
+        android:id="@+id/clear_count_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/game_over"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:text="@string/clear_count_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/clear_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/game_over"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/clear_count_label"
+        android:text="@string/clear_count"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -45,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:layout_centerHorizontal="true"
+        android:onClick="registUser"
         android:text="@string/regist" />
 
     <ImageButton
