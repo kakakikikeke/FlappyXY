@@ -25,7 +25,7 @@ public class GameCountDownActivity extends AppCompatActivity {
         startCountDown = (TextView) findViewById(R.id.start_count_down);
         startCountDown.setTypeface(face);
         long interval = 10;
-        long startTime = 4500;
+        long startTime = 4000;
         StartCountDownTimer countDownTimer = new StartCountDownTimer(startTime, interval);
         countDownTimer.start();
     }
