@@ -25,6 +25,7 @@ public class ResultActivity extends AppCompatActivity {
     private static final String REGISTERING_WORD = "登録中";
     private static final String REGISTERERD_WORD = "登録済";
     private static final String WARNING = "1文字以上入力してください";
+    private static final String MISSED_MESSAGE = "登録に失敗しました、再度お試しください";
     private TextView clearCount;
     private EditText userName;
     private Button registButton;
@@ -83,6 +84,7 @@ public class ResultActivity extends AppCompatActivity {
                     registButton.setEnabled(true);
                     registButton.setText(R.string.regist);
                     userName.setEnabled(true);
+                    Toast.makeText(getApplicationContext(), MISSED_MESSAGE, Toast.LENGTH_LONG).show();
                 }else {
                     registButton.setText(REGISTERERD_WORD);
                     userName.setText(name + " -> " + "100位");
