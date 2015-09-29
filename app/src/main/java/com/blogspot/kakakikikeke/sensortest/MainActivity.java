@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -155,15 +156,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void initAnswers() {
         answerText[X] = (TextView) findViewById(R.id.answer_x_text);
         answerText[Y] = (TextView) findViewById(R.id.answer_y_text);
-        answers[X] = getXYRandomDegree();
-        answers[Y] = getXYRandomDegree();
+        answers[X] = getXRandomDegree();
+        answers[Y] = getYRandomDegree();
         answerText[X].setText(Const.LABEL_X + answers[X]);
         answerText[Y].setText(Const.LABEL_Y + answers[Y]);
         answerText[X].setTypeface(face);
         answerText[Y].setTypeface(face);
     }
 
-    private int getXYRandomDegree() {
+    private int getYRandomDegree() {
         double d = Math.random() * 90;
         int degree = (int) d;
         if (degree != 0) {
@@ -174,6 +175,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (sign >= 5) {
             degree *= (-1);
         }
+        return degree;
+    }
+
+    private int getXRandomDegree() {
+        double d = Math.random() * 90;
+        int degree = (int) d;
+        if (degree != 0) {
+            degree++;
+        }
+        degree *= (-1);
         return degree;
     }
 
@@ -209,11 +220,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            return true;
-        }
-        return super.dispatchKeyEvent(e);
+    public boolean dispatchKeyEvent(@NonNull KeyEvent e) {
+        return e.getKeyCode() == KeyEvent.KEYCODE_BACK || super.dispatchKeyEvent(e);
     }
 
     private boolean isClear() {
