@@ -23,17 +23,37 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/game_over"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="@string/clear_count_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/clear_count"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:maxLength="15" />
+
+    <Button
+        android:id="@+id/regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:text="@string/regist" />
 
     <ImageButton
         android:id="@+id/re_start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/clear_count"
+        android:layout_below="@+id/regist"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/start_button_state"
         android:onClick="reStartGame" />
 
@@ -46,4 +66,5 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/ranking_button_state"
         android:onClick="showRanking" />
+
 </RelativeLayout>
