@@ -9,6 +9,7 @@
     <string name="count_down">CountStart</string>
     <string name="adjust">Adjust!</string>
     <string name="start_time">0</string>
+    <string name="start_game_time">0</string>
     <string name="start_message">Start</string>
     <string name="result_message">Game Over</string>
     <string name="start_button">Start</string>
