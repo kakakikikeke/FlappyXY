@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blogspot.kakakikikeke.sensortest.utils.Const;
 import com.nifty.cloud.mb.NCMBException;
@@ -20,8 +22,12 @@ public class ResultActivity extends AppCompatActivity {
     private static final String RANKING_CLASS = "ranking";
     private static final String NAME_FIELD = "name";
     private static final String SCORE_FIELD = "score";
+    private static final String REGISTERING_WORD = "登録中";
+    private static final String REGISTERERD_WORD = "登録済";
+    private static final String WARNING = "1文字以上入力してください";
     private TextView clearCount;
     private EditText userName;
+    private Button registButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,7 @@ public class ResultActivity extends AppCompatActivity {
         clearCount.setTypeface(Typeface.createFromAsset(getAssets(), Const.FONT_NAME));
         clearCount.setText(String.valueOf(i.getIntExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, 0)));
         userName = (EditText) findViewById(R.id.name);
+        registButton = (Button) findViewById(R.id.regist);
     }
 
     public void reStartGame(View view) {
@@ -54,11 +61,18 @@ public class ResultActivity extends AppCompatActivity {
 
     public void registUser(View view) {
         String name = userName.getText().toString();
+        if (name.length() < 1) {
+            Toast.makeText(this, WARNING, Toast.LENGTH_LONG).show();
+            return;
+        }
+        registButton.setEnabled(false);
+        registButton.setText(REGISTERING_WORD);
+        userName.setEnabled(false);
         String score = clearCount.getText().toString();
         registUserToNCMB(name, Integer.parseInt(score));
     }
 
-    private void registUserToNCMB(String name, int score) {
+    private void registUserToNCMB(final String name, int score) {
         NCMBObject obj = new NCMBObject(RANKING_CLASS);
         obj.put(NAME_FIELD, name);
         obj.put(SCORE_FIELD, score);
@@ -66,9 +80,12 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void done(NCMBException e) {
                 if(e != null){
-
+                    registButton.setEnabled(true);
+                    registButton.setText(R.string.regist);
+                    userName.setEnabled(true);
                 }else {
-
+                    registButton.setText(REGISTERERD_WORD);
+                    userName.setText(name + " -> " + "100位");
                 }
             }
         });
