@@ -12,6 +12,10 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".GameCountDownActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ResultActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
