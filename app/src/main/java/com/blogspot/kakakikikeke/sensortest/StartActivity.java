@@ -28,7 +28,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void startGame(View view) {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, GameCountDownActivity.class);
         startActivity(i);
     }
 
@@ -63,6 +63,6 @@ public class StartActivity extends AppCompatActivity {
                 }
             }
         });
-        NCMBPush.setDefaultPushCallback(this, MainActivity.class);
+        NCMBPush.setDefaultPushCallback(this, StartActivity.class);
     }
 }

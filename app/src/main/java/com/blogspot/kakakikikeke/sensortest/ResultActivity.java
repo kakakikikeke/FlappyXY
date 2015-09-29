@@ -27,7 +27,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void reStartGame(View view) {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, GameCountDownActivity.class);
         startActivity(i);
     }
 
