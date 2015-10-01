@@ -19,9 +19,6 @@ import com.nifty.cloud.mb.SaveCallback;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private static final String RANKING_CLASS = "ranking";
-    private static final String NAME_FIELD = "name";
-    private static final String SCORE_FIELD = "score";
     private static final String REGISTERING_WORD = "登録中";
     private static final String REGISTERERD_WORD = "登録済";
     private static final String WARNING = "1文字以上入力してください";
@@ -74,9 +71,9 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void registUserToNCMB(final String name, int score) {
-        NCMBObject obj = new NCMBObject(RANKING_CLASS);
-        obj.put(NAME_FIELD, name);
-        obj.put(SCORE_FIELD, score);
+        NCMBObject obj = new NCMBObject(Const.RANKING_CLASS);
+        obj.put(Const.NAME_FIELD, name);
+        obj.put(Const.SCORE_FIELD, score);
         obj.saveInBackground(new SaveCallback() {
             @Override
             public void done(NCMBException e) {
