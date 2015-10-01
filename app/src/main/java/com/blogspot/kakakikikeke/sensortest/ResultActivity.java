@@ -31,6 +31,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_activity);
+        Typeface face = Typeface.createFromAsset(getAssets(), Const.FONT_NAME);
 
         Intent i = getIntent();
         TextView clearCountLabel = (TextView) findViewById(R.id.clear_count_label);
@@ -40,6 +41,7 @@ public class ResultActivity extends AppCompatActivity {
         clearCount.setText(String.valueOf(i.getIntExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, 0)));
         userName = (EditText) findViewById(R.id.name);
         registButton = (Button) findViewById(R.id.regist);
+        registButton.setTypeface(face);
     }
 
     public void reStartGame(View view) {
