@@ -13,16 +13,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.kakakikikeke.sensortest.utils.Const;
+import com.nifty.cloud.mb.FindCallback;
 import com.nifty.cloud.mb.NCMBException;
 import com.nifty.cloud.mb.NCMBObject;
+import com.nifty.cloud.mb.NCMBQuery;
 import com.nifty.cloud.mb.SaveCallback;
+
+import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 
     private static final String REGISTERING_WORD = "登録中";
     private static final String REGISTERERD_WORD = "登録済";
     private static final String WARNING = "1文字以上入力してください";
-    private static final String MISSED_MESSAGE = "登録に失敗しました、再度お試しください";
+    private static final String MISSED_REGIST_MESSAGE = "登録に失敗しました、再度お試しください";
+    private static final String MISSED_GET_MESSAGE = "現在の順位取得に失敗しました";
     private TextView clearCount;
     private EditText userName;
     private Button registButton;
@@ -73,20 +78,46 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void registUserToNCMB(final String name, int score) {
-        NCMBObject obj = new NCMBObject(Const.RANKING_CLASS);
+        final NCMBObject obj = new NCMBObject(Const.RANKING_CLASS);
         obj.put(Const.NAME_FIELD, name);
         obj.put(Const.SCORE_FIELD, score);
         obj.saveInBackground(new SaveCallback() {
             @Override
             public void done(NCMBException e) {
-                if(e != null){
+                if (e != null) {
                     registButton.setEnabled(true);
                     registButton.setText(R.string.regist);
                     userName.setEnabled(true);
-                    Toast.makeText(getApplicationContext(), MISSED_MESSAGE, Toast.LENGTH_LONG).show();
-                }else {
+                    Toast.makeText(getApplicationContext(), MISSED_REGIST_MESSAGE, Toast.LENGTH_LONG).show();
+                } else {
                     registButton.setText(REGISTERERD_WORD);
-                    userName.setText(name + " -> " + "100位");
+                    showRank(name, obj.getObjectId());
+                }
+            }
+        });
+    }
+
+    private void showRank(final String name, final String objId) {
+        NCMBQuery<NCMBObject> query = new NCMBQuery<>(Const.RANKING_CLASS);
+        query.setLimit(100);
+        query.orderByDescending(Const.SCORE_FIELD);
+        query.findInBackground(new FindCallback<NCMBObject>() {
+            @Override
+            public void done(List<NCMBObject> results, NCMBException e) {
+                if (e != null) {
+                    userName.setText(name + " -> " + "? 位");
+                    Toast.makeText(getApplicationContext(), MISSED_GET_MESSAGE, Toast.LENGTH_LONG).show();
+                } else {
+                    String rankWord = "100位以上";
+                    int rank = 1;
+                    for (NCMBObject obj: results) {
+                        if (objId.equals(obj.getObjectId())) {
+                            rankWord = rank + "位";
+                            break;
+                        }
+                        rank++;
+                    }
+                    userName.setText(name + " -> " + rankWord);
                 }
             }
         });
