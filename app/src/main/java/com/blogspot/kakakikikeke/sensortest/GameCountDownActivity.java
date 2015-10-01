@@ -38,7 +38,7 @@ public class GameCountDownActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            startCountDown.setText("0");
+            startCountDown.setText("Start!");
             moveToMain();
         }
 
