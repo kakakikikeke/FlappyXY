@@ -45,7 +45,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                 if (0 == status) {
-                    soundPool.play(soundId, 0.3F, 0.3F, 0, 0, 1.0F);
+                    soundPool.play(soundId, 0.2F, 0.2F, 0, 0, 1.0F);
                 }
             }
         });
