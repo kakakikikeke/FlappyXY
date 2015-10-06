@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (isClear()) {
                 next();
             } else {
+                soundPool.release();
                 resultIntent.putExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, clear);
                 startActivity(resultIntent);
             }

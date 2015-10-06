@@ -2,6 +2,7 @@ package com.blogspot.kakakikikeke.sensortest;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.kakakikikeke.sensortest.utils.Const;
+import com.blogspot.kakakikikeke.sensortest.utils.FactoryUtils;
 import com.nifty.cloud.mb.FindCallback;
 import com.nifty.cloud.mb.NCMBException;
 import com.nifty.cloud.mb.NCMBObject;
@@ -37,6 +39,16 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_activity);
         Typeface face = Typeface.createFromAsset(getAssets(), Const.FONT_NAME);
+        SoundPool soundPool = FactoryUtils.buildSoundPool(1);
+        final int soundId = soundPool.load(getApplicationContext(), R.raw.end, 0);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (0 == status) {
+                    soundPool.play(soundId, 0.3F, 0.3F, 0, 0, 1.0F);
+                }
+            }
+        });
 
         Intent i = getIntent();
         TextView clearCountLabel = (TextView) findViewById(R.id.clear_count_label);
