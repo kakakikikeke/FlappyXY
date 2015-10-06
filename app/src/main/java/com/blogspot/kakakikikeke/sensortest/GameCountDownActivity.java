@@ -19,7 +19,6 @@ import com.blogspot.kakakikikeke.sensortest.utils.Const;
 public class GameCountDownActivity extends AppCompatActivity {
 
     TextView startCountDown;
-    private SoundPool soundPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +56,38 @@ public class GameCountDownActivity extends AppCompatActivity {
 
     public class StartCountDownTimer extends CountDownTimer {
 
+        private SoundPool soundPool;
+        private int soundId;
+        private boolean threeCountFlag = false;
+        private boolean twoCountFlag = false;
+        private boolean oneCountFlag = false;
+
         public StartCountDownTimer(long startTime, long interval) {
             super(startTime, interval);
+            soundPool = buildSoundPool(1);
+            soundId = soundPool.load(getApplicationContext(), R.raw.count_down, 0);
         }
 
         @Override
         public void onFinish() {
             startCountDown.setText("Start!");
+            soundPool.release();
             moveToMain();
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if (millisUntilFinished < 3000) {
+            if (millisUntilFinished <= 3000) {
+                if (millisUntilFinished < 3000 && !threeCountFlag) {
+                    threeCountFlag = true;
+                    soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
+                } else if(millisUntilFinished < 2000 && !twoCountFlag) {
+                    twoCountFlag = true;
+                    soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
+                } else if(millisUntilFinished < 1000 && !oneCountFlag) {
+                    oneCountFlag = true;
+                    soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
+                }
                 int mills = 1000;
                 startCountDown.setText(String.valueOf(millisUntilFinished / mills));
             }
