@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.widget.TextView;
 
 import com.blogspot.kakakikikeke.sensortest.utils.Const;
+import com.blogspot.kakakikikeke.sensortest.utils.FactoryUtils;
 
 public class GameCountDownActivity extends AppCompatActivity {
 
@@ -35,25 +36,6 @@ public class GameCountDownActivity extends AppCompatActivity {
         countDownTimer.start();
     }
 
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private SoundPool buildSoundPool(int poolMax) {
-        SoundPool pool;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            pool = new SoundPool(poolMax, AudioManager.STREAM_MUSIC, 0);
-        } else {
-            AudioAttributes attr = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .build();
-            pool = new SoundPool.Builder()
-                    .setAudioAttributes(attr)
-                    .setMaxStreams(poolMax)
-                    .build();
-        }
-        return pool;
-    }
-
     public class StartCountDownTimer extends CountDownTimer {
 
         private SoundPool soundPool;
@@ -64,7 +46,7 @@ public class GameCountDownActivity extends AppCompatActivity {
 
         public StartCountDownTimer(long startTime, long interval) {
             super(startTime, interval);
-            soundPool = buildSoundPool(1);
+            soundPool = FactoryUtils.buildSoundPool(1);
             soundId = soundPool.load(getApplicationContext(), R.raw.count_down, 0);
         }
 

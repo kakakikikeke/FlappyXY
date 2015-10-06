@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.blogspot.kakakikikeke.sensortest.utils.Const;
+import com.blogspot.kakakikikeke.sensortest.utils.FactoryUtils;
 
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Intent resultIntent;
     private GameCountDownTimer countDownTimer;
     private Typeface face;
+    private SoundPool soundPool;
+    private int soundId;
     private int[] answers = new int[2];
     private boolean[] answersFlag = new boolean[2];
     private float[] geomagnetic;
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         face = Typeface.createFromAsset(getAssets(), Const.FONT_NAME);
+        soundPool = FactoryUtils.buildSoundPool(1);
+        soundId = soundPool.load(getApplicationContext(), R.raw.clear, 0);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorText[X] = (TextView) findViewById(R.id.sensor_x_text);
@@ -108,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 answerText[Y].setText(Const.LABEL_CLEARED);
             }
             if (isClear()) {
+                soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
                 next();
             }
         }
