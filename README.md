@@ -2,7 +2,7 @@
 Tha interactive game with Android sensor API.
 
 # How to install
-Please install the app from below URL.
+Please install the app from below URL.  
 https://play.google.com/store/apps/details?id=com.blogspot.kakakikikeke.sensortest
 
 # How to play
