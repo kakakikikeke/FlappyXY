@@ -14,7 +14,6 @@ import io.realm.Sort;
 public class RankingActivity extends AppCompatActivity {
 
     private Realm realm;
-    private MyListAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,8 +21,8 @@ public class RankingActivity extends AppCompatActivity {
         setContentView(R.layout.ranking_activity);
         realm = Realm.getDefaultInstance();
         RealmResults<Score> scores = realm.where(Score.class).sort("point", Sort.DESCENDING).findAll();
-        adapter = new MyListAdapter(scores);
-        ListView listView = (ListView) findViewById(R.id.listView);
+        MyListAdapter adapter = new MyListAdapter(scores);
+        ListView listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
     }
 

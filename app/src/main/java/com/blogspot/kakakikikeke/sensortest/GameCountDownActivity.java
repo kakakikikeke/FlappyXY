@@ -36,11 +36,8 @@ public class GameCountDownActivity extends AppCompatActivity {
 
         private SoundPool soundPool;
         private int soundId;
-        private boolean threeCountFlag = false;
-        private boolean twoCountFlag = false;
-        private boolean oneCountFlag = false;
 
-        public StartCountDownTimer(long startTime, long interval) {
+        StartCountDownTimer(long startTime, long interval) {
             super(startTime, interval);
             soundPool = FactoryUtils.buildSoundPool(1);
             soundId = soundPool.load(getApplicationContext(), R.raw.count_down, 0);
