@@ -15,13 +15,6 @@ import android.widget.Toast;
 
 import com.blogspot.kakakikikeke.sensortest.utils.Const;
 import com.blogspot.kakakikikeke.sensortest.utils.FactoryUtils;
-import com.nifty.cloud.mb.FindCallback;
-import com.nifty.cloud.mb.NCMBException;
-import com.nifty.cloud.mb.NCMBObject;
-import com.nifty.cloud.mb.NCMBQuery;
-import com.nifty.cloud.mb.SaveCallback;
-
-import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -66,11 +59,6 @@ public class ResultActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void showRanking(View view) {
-        Intent i = new Intent(this, RankingActivity.class);
-        startActivity(i);
-    }
-
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent e) {
         return e.getKeyCode() == KeyEvent.KEYCODE_BACK || super.dispatchKeyEvent(e);
@@ -86,52 +74,6 @@ public class ResultActivity extends AppCompatActivity {
         registButton.setText(REGISTERING_WORD);
         userName.setEnabled(false);
         String score = clearCount.getText().toString();
-        registUserToNCMB(name, Integer.parseInt(score));
     }
 
-    private void registUserToNCMB(final String name, int score) {
-        final NCMBObject obj = new NCMBObject(Const.RANKING_CLASS);
-        obj.put(Const.NAME_FIELD, name);
-        obj.put(Const.SCORE_FIELD, score);
-        obj.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(NCMBException e) {
-                if (e != null) {
-                    registButton.setEnabled(true);
-                    registButton.setText(R.string.regist);
-                    userName.setEnabled(true);
-                    Toast.makeText(getApplicationContext(), MISSED_REGIST_MESSAGE, Toast.LENGTH_LONG).show();
-                } else {
-                    registButton.setText(REGISTERERD_WORD);
-                    showRank(name, obj.getObjectId());
-                }
-            }
-        });
-    }
-
-    private void showRank(final String name, final String objId) {
-        NCMBQuery<NCMBObject> query = new NCMBQuery<>(Const.RANKING_CLASS);
-        query.setLimit(100);
-        query.orderByDescending(Const.SCORE_FIELD);
-        query.findInBackground(new FindCallback<NCMBObject>() {
-            @Override
-            public void done(List<NCMBObject> results, NCMBException e) {
-                if (e != null) {
-                    userName.setText(name + " -> " + "? 位");
-                    Toast.makeText(getApplicationContext(), MISSED_GET_MESSAGE, Toast.LENGTH_LONG).show();
-                } else {
-                    String rankWord = "100位以上";
-                    int rank = 1;
-                    for (NCMBObject obj: results) {
-                        if (objId.equals(obj.getObjectId())) {
-                            rankWord = rank + "位";
-                            break;
-                        }
-                        rank++;
-                    }
-                    userName.setText(name + " -> " + rankWord);
-                }
-            }
-        });
-    }
 }
