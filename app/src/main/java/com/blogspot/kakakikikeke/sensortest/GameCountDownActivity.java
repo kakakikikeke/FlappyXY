@@ -1,12 +1,8 @@
 package com.blogspot.kakakikikeke.sensortest;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -28,10 +24,10 @@ public class GameCountDownActivity extends AppCompatActivity {
 
         Typeface face = Typeface.createFromAsset(getAssets(), Const.FONT_NAME);
 
-        startCountDown = (TextView) findViewById(R.id.start_count_down);
+        startCountDown = findViewById(R.id.start_count_down);
         startCountDown.setTypeface(face);
-        long interval = 10;
-        long startTime = 4000;
+        long interval = 1000;
+        long startTime = 3200;
         StartCountDownTimer countDownTimer = new StartCountDownTimer(startTime, interval);
         countDownTimer.start();
     }
@@ -52,7 +48,6 @@ public class GameCountDownActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            startCountDown.setText("Start!");
             soundPool.release();
             moveToMain();
         }
@@ -60,18 +55,8 @@ public class GameCountDownActivity extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             if (millisUntilFinished <= 3000) {
-                if (millisUntilFinished < 3000 && !threeCountFlag) {
-                    threeCountFlag = true;
-                    soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
-                } else if(millisUntilFinished < 2000 && !twoCountFlag) {
-                    twoCountFlag = true;
-                    soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
-                } else if(millisUntilFinished < 1000 && !oneCountFlag) {
-                    oneCountFlag = true;
-                    soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
-                }
-                int mills = 1000;
-                startCountDown.setText(String.valueOf(millisUntilFinished / mills));
+                soundPool.play(soundId, 1.0F, 1.0F, 0, 0, 1.0F);
+                startCountDown.setText(String.valueOf((millisUntilFinished / 1000) + 1));
             }
         }
     }
