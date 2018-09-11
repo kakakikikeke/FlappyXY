@@ -10,8 +10,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blogspot.kakakikikeke.sensortest.models.Score;
 import com.blogspot.kakakikikeke.sensortest.utils.Const;
 import com.blogspot.kakakikikeke.sensortest.utils.FactoryUtils;
+
+import java.util.Date;
+
+import io.realm.Realm;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -29,13 +34,30 @@ public class ResultActivity extends AppCompatActivity {
                 }
             }
         });
-
         Intent i = getIntent();
         TextView clearCountLabel = findViewById(R.id.clear_count_label);
         clearCountLabel.setTypeface(Typeface.createFromAsset(getAssets(), Const.FONT_NAME));
         TextView clearCount = findViewById(R.id.clear_count);
         clearCount.setTypeface(Typeface.createFromAsset(getAssets(), Const.FONT_NAME));
-        clearCount.setText(String.valueOf(i.getIntExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, 0)));
+        int point = i.getIntExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, 0);
+        if (point >= 0) {
+            storeScore(point);
+        }
+        clearCount.setText(String.valueOf(point));
+    }
+
+    public void storeScore(final int point) {
+        try(Realm realm = Realm.getDefaultInstance()) {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(@NonNull Realm realm) {
+                    Score s = new Score();
+                    s.setPoint(point);
+                    s.setDate(new Date());
+                    realm.insert(s);
+                }
+            });
+        }
     }
 
     public void reStartGame(View view) {
