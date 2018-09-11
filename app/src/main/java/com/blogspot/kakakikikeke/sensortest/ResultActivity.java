@@ -40,7 +40,7 @@ public class ResultActivity extends AppCompatActivity {
         TextView clearCount = findViewById(R.id.clear_count);
         clearCount.setTypeface(Typeface.createFromAsset(getAssets(), Const.FONT_NAME));
         int point = i.getIntExtra(Const.INTENT_INDEX_NAME_CLEAR_COUNT, 0);
-        if (point >= 0) {
+        if (point > 0) {
             storeScore(point);
         }
         clearCount.setText(String.valueOf(point));
@@ -62,6 +62,11 @@ public class ResultActivity extends AppCompatActivity {
 
     public void reStartGame(View view) {
         Intent i = new Intent(this, GameCountDownActivity.class);
+        startActivity(i);
+    }
+
+    public void showRanking(View view) {
+        Intent i = new Intent(this, RankingActivity.class);
         startActivity(i);
     }
 
