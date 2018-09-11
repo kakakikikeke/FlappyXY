@@ -9,19 +9,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="Tilt your phone!"
             android:screenOrientation="portrait" />
         <activity
             android:name=".GameCountDownActivity"
-            android:label="@string/app_name"
+            android:label="Are you ready?"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ResultActivity"
-            android:label="@string/app_name"
+            android:label="Result"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RankingActivity"
-            android:label="FlappyXY Ranking"
+            android:label="Ranking"
             android:screenOrientation="portrait" />
         <activity
             android:name=".StartActivity"
@@ -33,26 +33,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name="com.nifty.cloud.mb.NCMBGCMBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.blogspot.kakakikikeke.sensortest" />
-            </intent-filter>
-        </receiver>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
-    <permission
-        android:name="com.blogspot.kakakikikeke.sensortest.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="com.blogspot.kakakikikeke.sensortest.permission.C2D_MESSAGE" />
 </manifest>
