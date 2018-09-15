@@ -1,5 +1,5 @@
 # FlappyXY
-Tha interactive game with Android sensor API.
+The interactive game with Android sensor API.
 
 # How to install
 Please install the app from below URL.  
